@@ -1,6 +1,21 @@
+import { useEffect, useState } from 'react';
+
 export default function Hero() {
+  // Tracks how far user has scrolled — can be used for parallax effects later
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    // Update scrollY state whenever user scrolls
+    const handleScroll = () => setScrollY(window.scrollY);
+
+    // Attach scroll listener on mount
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup on unmount to prevent memory leaks
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []); // empty array = runs once on mount
+
   return (
-    // Full screen hero — id="home" links it to navbar scroll
     <div id="home" className="relative min-h-screen w-full overflow-hidden bg-black flex items-center justify-center">
 
       {/* Hero content — centered on screen */}
@@ -23,16 +38,14 @@ export default function Hero() {
 
         {/* CTA buttons */}
         <div className="mt-8 flex flex-wrap justify-center gap-4">
-          {/* Primary CTA — takes user to projects */}
-          <a
-            href="#projects"
+          
+            <a href="#projects"
             className="rounded-lg border border-zinc-700 bg-zinc-100 px-5 py-2.5 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-200"
           >
             View Projects
           </a>
-          {/* Secondary CTA — takes user to contact */}
-          <a
-            href="#contact"
+          
+            <a href="#contact"
             className="rounded-lg border border-zinc-700 px-5 py-2.5 text-sm font-medium text-zinc-300 transition-colors hover:border-zinc-500 hover:bg-zinc-800/50"
           >
             Get in Touch
