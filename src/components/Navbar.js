@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 export default function Navbar() {
   // Tracks which section is currently visible on screen
-  const [activeSection, setActiveSection] = useState('home'); // default to home on load
+  const [activeSection, setActiveSection] = useState('home');
 
   const navItems = [
     { id: 'home', label: 'Home' },
@@ -37,46 +38,74 @@ export default function Navbar() {
 
     // Cleanup listener on unmount to prevent memory leaks
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []); // empty array = runs once on mount
+  }, []);
 
   // Scrolls to section and updates active state immediately on click
   const handleNavClick = (sectionId) => {
-    setActiveSection(sectionId); // update immediately without waiting for scroll
+    setActiveSection(sectionId);
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-zinc-800">
+    // Navbar slides down from top on page load
+    <motion.nav
+      initial={{ y: -100 }}  // starts 100px above screen
+      animate={{ y: 0 }}     // slides to normal position
+      transition={{ duration: 0.5 }}
+      className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-zinc-800"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
 
-          {/* Logo / Brand */}
-          <a href="#home" className="text-lg font-bold tracking-tight text-zinc-100">
+          {/* Logo — scales up slightly on hover */}
+          <motion.a
+            href="#home"
+            whileHover={{ scale: 1.05 }}
+            className="text-lg font-bold tracking-tight text-zinc-100"
+          >
             PJ<span className="text-zinc-500">.</span>
-          </a>
+          </motion.a>
 
-          {/* Desktop nav links — active link is brighter */}
+          {/* Desktop nav links */}
           <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
-              <button
+              <motion.button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`text-sm font-medium transition-colors ${
-                  // Highlight active section, dim others
+                className={`relative text-sm font-medium transition-colors ${
                   activeSection === item.id ? 'text-zinc-100' : 'text-zinc-500 hover:text-zinc-300'
                 }`}
+                whileHover={{ scale: 1.05 }} // slight scale on hover
+                whileTap={{ scale: 0.95 }}   // slight shrink on click
               >
                 {item.label}
-              </button>
+
+                {/* Animated underline that slides between active nav items */}
+                {activeSection === item.id && (
+                  <motion.div
+                    layoutId="activeIndicator" // shared id makes it animate between buttons
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-zinc-100"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
+              </motion.button>
             ))}
           </div>
 
-          {/* Mobile hamburger */}
-          <button className="md:hidden text-zinc-300 hover:text-zinc-100">☰</button>
+          {/* Mobile hamburger — scales on hover/tap */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="md:hidden text-zinc-300 hover:text-zinc-100"
+          >
+            ☰
+          </motion.button>
 
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 }
