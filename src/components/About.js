@@ -1,5 +1,5 @@
 import React from 'react';
-import AnimatedAvatar from './AnimatedAvatar'; // custom avatar component
+import AnimatedAvatar from './AnimatedAvatar';
 import './About.css';
 
 const About = () => {
@@ -12,9 +12,14 @@ const About = () => {
 
           {/* Avatar Section — left side */}
           <div className="avatar-container">
-            {/* AnimatedAvatar handles its own animation internally */}
             <div className="avatar-wrapper">
               <AnimatedAvatar />
+            </div>
+
+            {/* Status badge — shows availability */}
+            <div className="status-badge">
+              <span className="status-dot"></span> {/* green pulsing dot */}
+              Available for work
             </div>
           </div>
 
