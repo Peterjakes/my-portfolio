@@ -1,28 +1,26 @@
 import React from 'react';
+import AnimatedAvatar from './AnimatedAvatar'; // custom avatar component
 import './About.css';
 
 const About = () => {
-  // Tech stack badges — update as your skills grow
   const techStack = ['React', 'Node.js', 'JavaScript', 'Flutter', 'Laravel', 'PHP'];
 
   return (
-    // Section id="about" links it to navbar scroll
     <section id="about" className="about-section">
       <div className="about-container">
         <div className="about-content">
 
           {/* Avatar Section — left side */}
           <div className="avatar-container">
+            {/* AnimatedAvatar handles its own animation internally */}
             <div className="avatar-wrapper">
-        
+              <AnimatedAvatar />
             </div>
           </div>
 
           {/* Bio Section — right side */}
           <div className="bio-container">
             <h2>About Me</h2>
-
-            {/* Bio paragraphs */}
             <p className="bio-text">
               I'm Peter Jakes, a passionate full-stack developer and graphic designer with expertise in building modern, scalable web applications. I love turning ideas into reality through clean code and beautiful design.
             </p>
