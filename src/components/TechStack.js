@@ -1,5 +1,3 @@
-// src/components/TechStack.js
-
 import { motion } from 'framer-motion';
 
 export default function TechStack() {
@@ -34,12 +32,12 @@ export default function TechStack() {
     <section id="skills" className="min-h-screen w-full bg-black py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
 
-        {/* Section header — animates in when scrolled into view */}
+        {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}   // starts invisible 20px below
-          whileInView={{ opacity: 1, y: 0 }} // animates when scrolled to
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}           // only animates once
+          viewport={{ once: true }}
           className="mb-12"
         >
           <p className="mb-2 text-sm font-medium uppercase tracking-widest text-zinc-500">
@@ -53,13 +51,22 @@ export default function TechStack() {
         {/* Skills grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skills.map((skillGroup, groupIndex) => (
-            <div
+            // Each card animates in with staggered delay based on index
+            <motion.div
               key={groupIndex}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: groupIndex * 0.1 }} // staggered: 0s, 0.1s, 0.2s...
+              viewport={{ once: true }}
+              whileHover={{ y: -5 }} // lifts card up slightly on hover
               className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-zinc-700 transition-colors"
             >
+              {/* Category title */}
               <h3 className="mb-4 text-lg font-semibold text-zinc-100">
                 {skillGroup.category}
               </h3>
+
+              {/* Tech tags */}
               <div className="flex flex-wrap gap-2">
                 {skillGroup.techs.map((tech, techIndex) => (
                   <span
@@ -70,7 +77,7 @@ export default function TechStack() {
                   </span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
