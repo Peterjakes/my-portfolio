@@ -1,5 +1,8 @@
+// src/components/TechStack.js
+
+import { motion } from 'framer-motion';
+
 export default function TechStack() {
-  // Skills grouped by category 
   const skills = [
     {
       category: 'Frontend',
@@ -28,33 +31,35 @@ export default function TechStack() {
   ];
 
   return (
-    // Section id="skills" links it to navbar scroll
     <section id="skills" className="min-h-screen w-full bg-black py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
 
-        {/* Section header */}
-        <div className="mb-12">
+        {/* Section header — animates in when scrolled into view */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}   // starts invisible 20px below
+          whileInView={{ opacity: 1, y: 0 }} // animates when scrolled to
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}           // only animates once
+          className="mb-12"
+        >
           <p className="mb-2 text-sm font-medium uppercase tracking-widest text-zinc-500">
             Skills
           </p>
           <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
             Technologies & Tools
           </h2>
-        </div>
+        </motion.div>
 
-        {/* Skills grid — 1 col mobile, 2 col tablet, 3 col desktop */}
+        {/* Skills grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skills.map((skillGroup, groupIndex) => (
             <div
               key={groupIndex}
               className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-zinc-700 transition-colors"
             >
-              {/* Category title */}
               <h3 className="mb-4 text-lg font-semibold text-zinc-100">
                 {skillGroup.category}
               </h3>
-
-              {/* Tech tags */}
               <div className="flex flex-wrap gap-2">
                 {skillGroup.techs.map((tech, techIndex) => (
                   <span
