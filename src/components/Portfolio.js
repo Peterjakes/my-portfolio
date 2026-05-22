@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 export default function Portfolio() {
-  // Tracks which category filter is active 
   const [filter, setFilter] = useState('all');
 
   const projects = [
@@ -68,18 +68,21 @@ export default function Portfolio() {
     },
   ];
 
-  // All available filter categories
   const categories = ['all', 'web', 'mobile', 'design'];
-
-  // Filter projects — show all if filter is 'all'
   const filteredProjects = filter === 'all' ? projects : projects.filter((p) => p.category === filter);
 
   return (
     <section id="projects" className="min-h-screen w-full bg-black py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
 
-        {/* Section header */}
-        <div className="mb-12">
+        {/* Section header — animates in when scrolled into view */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-12"
+        >
           <p className="mb-2 text-sm font-medium uppercase tracking-widest text-zinc-500">
             Portfolio
           </p>
@@ -89,39 +92,52 @@ export default function Portfolio() {
           <p className="mx-auto max-w-md text-zinc-500">
             A selection of my recent work across web development, mobile, and design.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Filter buttons — highlights active category */}
-        <div className="mb-8 flex flex-wrap gap-3 justify-center">
+        {/* Filter buttons — animates in after header */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: true }}
+          className="mb-8 flex flex-wrap gap-3 justify-center"
+        >
           {categories.map((cat) => (
-            <button
+            <motion.button
               key={cat}
-              onClick={() => setFilter(cat)} // update active filter on click
+              onClick={() => setFilter(cat)}
               className={`rounded-lg px-4 py-2 text-sm font-medium transition-all ${
                 filter === cat
-                  ? 'bg-zinc-100 text-zinc-900'             // active style
-                  : 'border border-zinc-800 text-zinc-500 hover:border-zinc-600 hover:text-zinc-200' // inactive
+                  ? 'bg-zinc-100 text-zinc-900'
+                  : 'border border-zinc-800 text-zinc-500 hover:border-zinc-600 hover:text-zinc-200'
               }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {/* Capitalize first letter of each category */}
               {cat.charAt(0).toUpperCase() + cat.slice(1)}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Projects grid — renders filtered results */}
+        {/* Projects grid — cards animate in with stagger */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((work) => (
-            <div
+          {filteredProjects.map((work, index) => (
+            <motion.div
               key={work.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }} // staggered entrance
+              whileHover={{ y: -8 }} // lifts card on hover
               className="group overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/40 transition-colors hover:border-zinc-600"
             >
-              {/* Project image */}
+              {/* Project image — zooms slightly on hover */}
               <div className="relative h-48 overflow-hidden bg-zinc-800">
-                <img
+                <motion.img
                   src={work.image}
                   alt={work.title}
                   className="h-full w-full object-cover"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
                 />
               </div>
 
@@ -142,41 +158,50 @@ export default function Portfolio() {
                   ))}
                 </div>
 
-                {/* Action buttons */}
+                {/* Action buttons — scale on hover and tap */}
                 <div className="flex gap-2 flex-wrap">
+                  {/* Demo — blue button */}
                   {work.demo && (
-                    
-                     <a href={work.demo}
+                    <motion.a
+                      href={work.demo}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1 min-w-fit rounded-lg bg-blue-600 px-3 py-2 text-center text-xs font-medium text-white transition-colors hover:bg-blue-700"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                     >
                       🌐 Demo
-                    </a>
+                    </motion.a>
                   )}
+                  {/* Video — red button */}
                   {work.video && (
-                    
-                     <a href={work.video}
+                    <motion.a
+                      href={work.video}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1 min-w-fit rounded-lg bg-red-600 px-3 py-2 text-center text-xs font-medium text-white transition-colors hover:bg-red-700"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                     >
                       ▶ Video
-                    </a>
+                    </motion.a>
                   )}
+                  {/* GitHub — outlined button */}
                   {work.github && (
-                    
-                     <a href={work.github}
+                    <motion.a
+                      href={work.github}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1 min-w-fit rounded-lg border border-zinc-700 px-3 py-2 text-center text-xs font-medium text-zinc-400 transition-colors hover:border-zinc-500 hover:text-zinc-200"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                     >
                       💻 Code
-                    </a>
+                    </motion.a>
                   )}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
