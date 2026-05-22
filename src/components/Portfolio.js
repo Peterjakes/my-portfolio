@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Portfolio() {
+  // Tracks which category filter is active — defaults to showing all
   const [filter, setFilter] = useState('all');
 
   const projects = [
@@ -69,6 +70,8 @@ export default function Portfolio() {
   ];
 
   const categories = ['all', 'web', 'mobile', 'design'];
+
+  // Filter projects — show all if filter is 'all'
   const filteredProjects = filter === 'all' ? projects : projects.filter((p) => p.category === filter);
 
   return (
@@ -94,7 +97,7 @@ export default function Portfolio() {
           </p>
         </motion.div>
 
-        {/* Filter buttons — animates in after header */}
+        {/* Filter buttons */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -119,90 +122,94 @@ export default function Portfolio() {
           ))}
         </motion.div>
 
-        {/* Projects grid — cards animate in with stagger */}
+        {/* Projects grid wrapped in AnimatePresence */}
+        {/* AnimatePresence allows cards to animate OUT when filter changes */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((work, index) => (
-            <motion.div
-              key={work.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }} // staggered entrance
-              whileHover={{ y: -8 }} // lifts card on hover
-              className="group overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/40 transition-colors hover:border-zinc-600"
-            >
-              {/* Project image — zooms slightly on hover */}
-              <div className="relative h-48 overflow-hidden bg-zinc-800">
-                <motion.img
-                  src={work.image}
-                  alt={work.title}
-                  className="h-full w-full object-cover"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </div>
-
-              {/* Project content */}
-              <div className="p-5">
-                <h3 className="mb-2 text-lg font-semibold text-zinc-100">{work.title}</h3>
-                <p className="mb-4 text-sm leading-relaxed text-zinc-500">{work.description}</p>
-
-                {/* Tech tags */}
-                <div className="mb-4 flex flex-wrap gap-2">
-                  {work.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-md bg-zinc-800 px-2.5 py-1 text-xs font-medium text-zinc-400"
-                    >
-                      {t}
-                    </span>
-                  ))}
+          <AnimatePresence mode="wait">
+            {filteredProjects.map((work, index) => (
+              <motion.div
+                key={work.id}
+                initial={{ opacity: 0, y: 20 }}   // starts invisible below
+                animate={{ opacity: 1, y: 0 }}     // slides into place
+                exit={{ opacity: 0, y: -20 }}      // slides up and fades out on filter change
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -8 }}
+                className="group overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/40 transition-colors hover:border-zinc-600"
+              >
+                {/* Project image — zooms slightly on hover */}
+                <div className="relative h-48 overflow-hidden bg-zinc-800">
+                  <motion.img
+                    src={work.image}
+                    alt={work.title}
+                    className="h-full w-full object-cover"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                  />
                 </div>
 
-                {/* Action buttons — scale on hover and tap */}
-                <div className="flex gap-2 flex-wrap">
-                  {/* Demo — blue button */}
-                  {work.demo && (
-                    <motion.a
-                      href={work.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 min-w-fit rounded-lg bg-blue-600 px-3 py-2 text-center text-xs font-medium text-white transition-colors hover:bg-blue-700"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      🌐 Demo
-                    </motion.a>
-                  )}
-                  {/* Video — red button */}
-                  {work.video && (
-                    <motion.a
-                      href={work.video}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 min-w-fit rounded-lg bg-red-600 px-3 py-2 text-center text-xs font-medium text-white transition-colors hover:bg-red-700"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      ▶ Video
-                    </motion.a>
-                  )}
-                  {/* GitHub — outlined button */}
-                  {work.github && (
-                    <motion.a
-                      href={work.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 min-w-fit rounded-lg border border-zinc-700 px-3 py-2 text-center text-xs font-medium text-zinc-400 transition-colors hover:border-zinc-500 hover:text-zinc-200"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      💻 Code
-                    </motion.a>
-                  )}
+                {/* Project content */}
+                <div className="p-5">
+                  <h3 className="mb-2 text-lg font-semibold text-zinc-100">{work.title}</h3>
+                  <p className="mb-4 text-sm leading-relaxed text-zinc-500">{work.description}</p>
+
+                  {/* Tech tags */}
+                  <div className="mb-4 flex flex-wrap gap-2">
+                    {work.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-md bg-zinc-800 px-2.5 py-1 text-xs font-medium text-zinc-400"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Action buttons */}
+                  <div className="flex gap-2 flex-wrap">
+                    {/* Demo — blue */}
+                    {work.demo && (
+                      <motion.a
+                        href={work.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 min-w-fit rounded-lg bg-blue-600 px-3 py-2 text-center text-xs font-medium text-white transition-colors hover:bg-blue-700"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        🌐 Demo
+                      </motion.a>
+                    )}
+                    {/* Video — red */}
+                    {work.video && (
+                      <motion.a
+                        href={work.video}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 min-w-fit rounded-lg bg-red-600 px-3 py-2 text-center text-xs font-medium text-white transition-colors hover:bg-red-700"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        ▶ Video
+                      </motion.a>
+                    )}
+                    {/* GitHub — outlined */}
+                    {work.github && (
+                      <motion.a
+                        href={work.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 min-w-fit rounded-lg border border-zinc-700 px-3 py-2 text-center text-xs font-medium text-zinc-400 transition-colors hover:border-zinc-500 hover:text-zinc-200"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        💻 Code
+                      </motion.a>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
 
       </div>
