@@ -1,5 +1,9 @@
+import { useState } from 'react';
+
 export default function Portfolio() {
-  // Projects data 
+  // Tracks which category filter is active 
+  const [filter, setFilter] = useState('all');
+
   const projects = [
     {
       id: 1,
@@ -64,8 +68,13 @@ export default function Portfolio() {
     },
   ];
 
+  // All available filter categories
+  const categories = ['all', 'web', 'mobile', 'design'];
+
+  // Filter projects — show all if filter is 'all'
+  const filteredProjects = filter === 'all' ? projects : projects.filter((p) => p.category === filter);
+
   return (
-    // Section id="projects" links it to navbar scroll
     <section id="projects" className="min-h-screen w-full bg-black py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
 
@@ -82,9 +91,27 @@ export default function Portfolio() {
           </p>
         </div>
 
-        {/* Projects grid — 1 col mobile, 2 col tablet, 3 col desktop */}
+        {/* Filter buttons — highlights active category */}
+        <div className="mb-8 flex flex-wrap gap-3 justify-center">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setFilter(cat)} // update active filter on click
+              className={`rounded-lg px-4 py-2 text-sm font-medium transition-all ${
+                filter === cat
+                  ? 'bg-zinc-100 text-zinc-900'             // active style
+                  : 'border border-zinc-800 text-zinc-500 hover:border-zinc-600 hover:text-zinc-200' // inactive
+              }`}
+            >
+              {/* Capitalize first letter of each category */}
+              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        {/* Projects grid — renders filtered results */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((work) => (
+          {filteredProjects.map((work) => (
             <div
               key={work.id}
               className="group overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/40 transition-colors hover:border-zinc-600"
@@ -117,7 +144,6 @@ export default function Portfolio() {
 
                 {/* Action buttons */}
                 <div className="flex gap-2 flex-wrap">
-                  {/* Demo link  */}
                   {work.demo && (
                     
                      <a href={work.demo}
@@ -128,7 +154,6 @@ export default function Portfolio() {
                       🌐 Demo
                     </a>
                   )}
-                  {/* Video link  */}
                   {work.video && (
                     
                      <a href={work.video}
@@ -139,7 +164,6 @@ export default function Portfolio() {
                       ▶ Video
                     </a>
                   )}
-                  {/* GitHub link  */}
                   {work.github && (
                     
                      <a href={work.github}
