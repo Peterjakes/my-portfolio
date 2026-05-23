@@ -1,0 +1,20 @@
+/* ─── Section Layout ─────── */
+
+.about-section {
+  min-height: 100vh;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+}
+
+.about-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Two column grid — avatar left, bio right */
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
