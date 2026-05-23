@@ -1,4 +1,4 @@
-/* ─── Section Layout ─────── */
+/* ─── Section Layout ──────────────────────────────────────────────────────── */
 
 .about-section {
   min-height: 100vh;
@@ -11,10 +11,63 @@
   margin: 0 auto;
 }
 
-/* Two column grid — avatar left, bio right */
 .about-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
+}
+
+/* ─── Avatar Section ──────────────────────────────────────────────────────── */
+
+.avatar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+/* Wrapper gives the avatar a fixed size to sit inside */
+.avatar-wrapper {
+  position: relative;
+  width: 200px;
+  height: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ─── Status Badge ────────────────────────────────────────────────────────── */
+
+/* Green pill badge — shows availability status */
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: rgba(34, 197, 94, 0.1); /* subtle green background */
+  border: 2px solid #22c55e;          /* green border */
+  border-radius: 50px;
+  color: #22c55e;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Pulsing green dot inside the badge */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulse 2s infinite; /* uses pulse keyframe below */
+}
+
+/* Pulse animation — fades in and out to simulate a live indicator */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5; /* dims at halfway point */
+  }
 }
