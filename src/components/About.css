@@ -11,6 +11,7 @@
   margin: 0 auto;
 }
 
+/* Two column grid — avatar left, bio right */
 .about-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -66,7 +67,6 @@
 
 /* ─── Bio Section ─────────────────────────────────────────────────────────── */
 
-/* Stacks heading, text and badges vertically */
 .bio-container {
   display: flex;
   flex-direction: column;
@@ -80,23 +80,21 @@
   margin-bottom: 10px;
 }
 
-/* Muted body text for bio paragraphs */
 .bio-text {
   font-size: 16px;
   line-height: 1.7;
-  color: #a1a1aa; /* zinc-400 */
+  color: #a1a1aa;
 }
 
 /* ─── Tech Badges ─────────────────────────────────────────────────────────── */
 
 .tech-badges {
   display: flex;
-  flex-wrap: wrap;   /* wraps to next line when full */
+  flex-wrap: wrap;
   gap: 12px;
   margin: 20px 0;
 }
 
-/* Individual pill badge for each tech */
 .tech-badge {
   padding: 8px 16px;
   background: rgba(255, 255, 255, 0.1);
@@ -108,9 +106,152 @@
   transition: all 0.3s ease;
 }
 
-/* Lifts and brightens badge on hover */
 .tech-badge:hover {
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.4);
   transform: translateY(-2px);
+}
+
+/* ─── CV Download Button ──────────────────────────────────────────────────── */
+
+/* Blue gradient button with shadow glow */
+.cv-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); /* blue gradient */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  width: fit-content;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3); /* blue glow */
+}
+
+/* Lifts button and intensifies glow on hover */
+.cv-download-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+}
+
+.cv-download-btn:active {
+  transform: translateY(-1px); /* slight press down on click */
+}
+
+.download-icon {
+  font-size: 20px;
+}
+
+/* ─── Responsive Design ───────────────────────────────────────────────────── */
+
+/* Tablet — tighten spacing */
+@media (max-width: 1024px) {
+  .about-container {
+    max-width: 90%;
+  }
+
+  .about-content {
+    gap: 40px;
+  }
+
+  .bio-container h2 {
+    font-size: 32px;
+  }
+}
+
+/* Mobile — switch to single column layout */
+@media (max-width: 768px) {
+  .about-section {
+    padding: 60px 20px;
+    min-height: auto; /* don't force full height on mobile */
+  }
+
+  .about-content {
+    grid-template-columns: 1fr; /* stack avatar above bio */
+    gap: 40px;
+  }
+
+  .bio-container h2 { font-size: 28px; }
+  .bio-text { font-size: 15px; }
+
+  .avatar-wrapper {
+    width: 180px;
+    height: 220px;
+  }
+
+  .status-badge {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
+  .tech-badges {
+    gap: 8px;
+    margin: 15px 0;
+  }
+
+  .tech-badge {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  /* Full width button on mobile */
+  .cv-download-btn {
+    padding: 14px 24px;
+    font-size: 14px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .avatar-container { gap: 20px; }
+}
+
+/* Small mobile — further reduce sizes */
+@media (max-width: 480px) {
+  .about-section { padding: 40px 15px; }
+  .about-container { max-width: 100%; }
+  .about-content { gap: 30px; }
+
+  .bio-container h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .bio-text {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .avatar-wrapper {
+    width: 150px;
+    height: 180px;
+  }
+
+  .status-badge {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .tech-badges { gap: 6px; }
+
+  .tech-badge {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+
+  .cv-download-btn {
+    padding: 12px 20px;
+    font-size: 13px;
+  }
+
+  .download-icon { font-size: 16px; }
 }
