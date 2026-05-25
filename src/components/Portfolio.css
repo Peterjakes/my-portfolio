@@ -79,12 +79,11 @@
   background: rgba(24, 24, 27, 0.8);
   border: 1px solid #3f3f46;
   border-radius: 12px;
-  overflow: hidden;       /* clips image zoom inside card */
+  overflow: hidden;
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
-/* Brightens border and adds shadow on hover */
 .project-card:hover {
   border-color: #52525b;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
@@ -96,8 +95,8 @@
   position: relative;
   width: 100%;
   height: 220px;
-  overflow: hidden;       /* clips the zoomed image on hover */
-  background: #3f3f46;   /* fallback if image fails to load */
+  overflow: hidden;
+  background: #3f3f46;
 }
 
 .project-image {
@@ -107,14 +106,12 @@
   transition: transform 0.3s ease;
 }
 
-/* Image zooms in when card is hovered */
 .project-card:hover .project-image {
   transform: scale(1.1);
 }
 
 /* ─── Image Overlay ───────────────────────────────────────────────────────── */
 
-/* Dark overlay that fades in on hover */
 .project-overlay {
   position: absolute;
   top: 0;
@@ -125,11 +122,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;              /* hidden by default */
+  opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-/* Overlay fades in when card is hovered */
 .project-card:hover .project-overlay {
   opacity: 1;
 }
@@ -143,4 +139,195 @@
 .overlay-content p {
   font-size: 14px;
   line-height: 1.5;
+}
+
+/* ─── Project Content ─────────────────────────────────────────────────────── */
+
+.project-content {
+  padding: 24px;
+}
+
+.project-content h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #e5e5e5;
+  margin-bottom: 12px;
+}
+
+/* ─── Tech Stack Tags ─────────────────────────────────────────────────────── */
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.tech-tag {
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #a1a1aa;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ─── Action Buttons ──────────────────────────────────────────────────────── */
+
+.project-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Base button styles shared across all button types */
+.btn {
+  flex: 1;
+  min-width: 70px;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* Demo — blue gradient */
+.btn-demo {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+}
+
+.btn-demo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Video — red gradient */
+.btn-video {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: none;
+}
+
+.btn-video:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+}
+
+/* GitHub — outlined transparent button */
+.btn-github {
+  background: transparent;
+  color: #a1a1aa;
+  border: 1px solid #52525b;
+}
+
+.btn-github:hover {
+  border-color: #71717a;
+  color: #e5e5e5;
+  transform: translateY(-2px);
+}
+
+/* ─── Responsive Design ───────────────────────────────────────────────────── */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .portfolio-section { padding: 80px 40px; }
+  .portfolio-header h2 { font-size: 38px; }
+  .portfolio-container { max-width: 90%; }
+  .projects-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+/* Mobile — single column layout */
+@media (max-width: 768px) {
+  .portfolio-section {
+    padding: 60px 20px;
+    min-height: auto;
+  }
+
+  .portfolio-header { margin-bottom: 40px; }
+  .portfolio-header h2 { font-size: 32px; margin-bottom: 12px; }
+  .portfolio-header p { font-size: 15px; max-width: 100%; }
+
+  .projects-grid {
+    grid-template-columns: 1fr; /* single column on mobile */
+    gap: 20px;
+  }
+
+  .filter-buttons { gap: 8px; margin-bottom: 30px; }
+  .filter-btn { padding: 8px 16px; font-size: 12px; }
+  .project-card { border-radius: 10px; }
+  .project-image-wrapper { height: 200px; }
+  .project-content { padding: 20px; }
+  .project-content h3 { font-size: 18px; margin-bottom: 10px; }
+  .tech-stack { margin-bottom: 15px; }
+  .tech-tag { padding: 3px 10px; font-size: 11px; }
+
+  .project-actions {
+    gap: 6px;
+    flex-direction: column; /* stack buttons vertically on mobile */
+  }
+
+  .btn { min-width: auto; padding: 8px 10px; font-size: 11px; flex: 1; }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .portfolio-section { padding: 40px 15px; }
+  .portfolio-container { max-width: 100%; }
+  .portfolio-header { margin-bottom: 30px; }
+  .portfolio-header h2 { font-size: 26px; margin-bottom: 10px; }
+  .portfolio-header p { font-size: 14px; line-height: 1.5; }
+
+  /* Horizontal scroll for filter buttons on very small screens */
+  .filter-buttons {
+    gap: 6px;
+    margin-bottom: 25px;
+    justify-content: flex-start;
+    overflow-x: auto;       /* allows horizontal scroll */
+    scroll-behavior: smooth;
+    padding-bottom: 8px;
+  }
+
+  /* Thin scrollbar for filter buttons */
+  .filter-buttons::-webkit-scrollbar { height: 4px; }
+  .filter-buttons::-webkit-scrollbar-thumb {
+    background: #52525b;
+    border-radius: 2px;
+  }
+
+  .filter-btn { padding: 6px 14px; font-size: 11px; white-space: nowrap; }
+  .projects-grid { gap: 15px; }
+  .project-card { border-radius: 8px; }
+  .project-image-wrapper { height: 180px; }
+  .project-overlay { padding: 15px; }
+  .overlay-content p { font-size: 13px; }
+  .project-content { padding: 16px; }
+  .project-content h3 { font-size: 16px; margin-bottom: 8px; }
+  .project-content p { font-size: 13px; line-height: 1.5; }
+  .tech-stack { gap: 6px; margin-bottom: 12px; }
+  .tech-tag { padding: 3px 8px; font-size: 10px; }
+
+  .project-actions { gap: 6px; flex-direction: column; }
+
+  .btn { padding: 8px 8px; font-size: 10px; min-width: auto; }
+
+  /* Full width buttons on smallest screens */
+  .btn-demo,
+  .btn-video,
+  .btn-github {
+    width: 100%;
+    justify-content: center;
+  }
 }
