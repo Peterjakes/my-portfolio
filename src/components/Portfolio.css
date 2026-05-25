@@ -31,3 +31,47 @@
   max-width: 500px;
   margin: 0 auto;
 }
+
+/* ─── Filter Buttons ──────────────────────────────────────────────────────── */
+
+.filter-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 10px 24px;
+  background: transparent;
+  border: 2px solid #3f3f46;
+  color: #a1a1aa;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Brightens border and text on hover */
+.filter-btn:hover {
+  border-color: #71717a;
+  color: #e5e5e5;
+}
+
+/* Active filter — white fill with dark text */
+.filter-btn.active {
+  background: #e5e5e5;
+  color: #0f0f0f;
+  border-color: #e5e5e5;
+}
+
+/* ─── Projects Grid ───────────────────────────────────────────────────────── */
+
+/* Auto-fit keeps columns flexible — min 320px wide */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
