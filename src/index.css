@@ -1,13 +1,98 @@
-body {
+/* ─── Tailwind Directives ─────────────────────────────────────────────────── */
+
+/* These three lines load all of Tailwind's styles */
+@tailwind base;       /* resets and base HTML element styles */
+@tailwind components; /* reusable component classes */
+@tailwind utilities;  /* utility classes like flex, text-sm, bg-black etc */
+
+/* ─── Global Reset ────────────────────────────────────────────────────────── */
+
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ─── Base Styles ─────────────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #0f0f0f;
+  color: #e5e5e5;
+  overflow-x: hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* ─── Responsive Font Sizes ───────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  html { font-size: 14px; }
+  body { line-height: 1.5; }
+  main { width: 100%; overflow-x: hidden; }
+}
+
+@media (min-width: 769px) { html { font-size: 16px; } }
+@media (min-width: 1025px) { html { font-size: 16px; } }
+@media (min-width: 1441px) { body { font-size: 16px; } }
+
+/* ─── Responsive Images ───────────────────────────────────────────────────── */
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ─── Typography ──────────────────────────────────────────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+p {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* ─── Buttons & Links ─────────────────────────────────────────────────────── */
+
+button, a {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* ─── Custom Scrollbar ────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
+
+/* ─── Touch-Friendly Tap Targets ──────────────────────────────────────────── */
+
+@media (hover: none) and (pointer: coarse) {
+  button, a, .btn, .filter-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ─── Reduced Motion Accessibility ───────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
