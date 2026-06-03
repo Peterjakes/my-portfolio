@@ -140,3 +140,93 @@ const DefaultLogo = ({ name }) => (
     </span>
   </div>
 );
+
+// Skills grouped by category — each tech maps to a logo above
+const skills = [
+  {
+    category: 'FRONTEND',
+    techs: ['React', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'Tailwind CSS'],
+  },
+  {
+    category: 'BACKEND',
+    techs: ['Node.js', 'Express', 'Laravel', 'PHP'],
+  },
+  {
+    category: 'DATABASE',
+    techs: ['MongoDB', 'MySQL'],
+  },
+  {
+    category: 'MOBILE',
+    techs: ['Flutter'],
+  },
+  {
+    category: 'TOOLS & VERSION CONTROL',
+    techs: ['Git', 'GitHub', 'VS Code', 'NPM'],
+  },
+  {
+    category: 'DESIGN',
+    techs: ['Illustrator', 'Photoshop', 'Figma'],
+  },
+];
+
+export default function TechStack() {
+  return (
+    // Section id="skills" links it to navbar scroll
+    <section id="skills" className="min-h-screen w-full bg-black py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+
+        {/* Section header — centered, animates in on scroll */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-16 text-center"
+        >
+          <p className="mb-3 text-sm font-medium uppercase tracking-widest text-zinc-500">
+            What I Work With
+          </p>
+          <h2 className="text-4xl font-bold tracking-tight text-zinc-100 sm:text-5xl">
+            Tech Stack & Skills
+          </h2>
+        </motion.div>
+
+        {/* Skills grid — 1 col mobile, 2 col tablet, 3 col desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {skills.map((group, gi) => (
+            // Each card staggered with slight delay based on index
+            <motion.div
+              key={gi}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: gi * 0.08 }} // 0s, 0.08s, 0.16s...
+              viewport={{ once: true }}
+              className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 hover:border-zinc-700 transition-colors"
+            >
+              {/* Category label — small uppercase tracking */}
+              <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500 mb-5">
+                {group.category}
+              </p>
+
+              {/* Tech badges — each shows logo + name side by side */}
+              <div className="flex flex-wrap gap-2">
+                {group.techs.map((tech, ti) => (
+                  <motion.div
+                    key={ti}
+                    whileHover={{ scale: 1.05 }} // slight grow on hover
+                    className="flex items-center gap-2 rounded-lg border border-zinc-700/60 bg-zinc-800/70 px-3 py-2 text-sm font-medium text-zinc-300 cursor-default transition-colors hover:border-zinc-600 hover:bg-zinc-800"
+                  >
+                    {/* Show real logo or fallback to initials */}
+                    {logos[tech] || <DefaultLogo name={tech} />}
+                    <span>{tech}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
