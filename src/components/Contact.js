@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+// react-icons — Material Design and Font Awesome icon sets
+import { MdEmail } from 'react-icons/md';
+import { FaLinkedin, FaGithub, FaWhatsapp, FaInstagram } from 'react-icons/fa';
 
 export default function Contact() {
   // Tracks values of each form field
@@ -21,7 +24,7 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault(); // prevent page reload on submit
-    console.log('Form submitted:', formData); // will replace with real API call later
+    console.log('Form submitted:', formData); // replace with real API call later
     setSubmitted(true);
 
     // Reset form and hide success message after 3 seconds
@@ -31,36 +34,36 @@ export default function Contact() {
     }, 3000);
   };
 
-  // Contact links with icons, labels, and URLs
+  // Contact methods — icon is now a react-icons component instead of an emoji
   const contactMethods = [
     {
       label: 'Email',
       value: 'peter@example.com',
-      icon: '✉️',
+      icon: MdEmail,          // Material Design email icon
       link: 'mailto:peter@example.com',
     },
     {
       label: 'LinkedIn',
       value: 'linkedin.com/in/pjkiberu',
-      icon: '💼',
+      icon: FaLinkedin,       // Font Awesome LinkedIn icon
       link: 'https://linkedin.com/in/pjkiberu',
     },
     {
       label: 'GitHub',
       value: 'github.com/pjkiberu',
-      icon: '🐙',
+      icon: FaGithub,         // Font Awesome GitHub icon
       link: 'https://github.com/pjkiberu',
     },
     {
       label: 'WhatsApp',
       value: '+1 (555) 123-4567',
-      icon: '💬',
+      icon: FaWhatsapp,       // Font Awesome WhatsApp icon
       link: 'https://wa.me/15551234567',
     },
     {
       label: 'Instagram',
       value: '@pjkiberu',
-      icon: '📷',
+      icon: FaInstagram,      // Font Awesome Instagram icon
       link: 'https://instagram.com/pjkiberu',
     },
   ];
@@ -106,7 +109,7 @@ export default function Contact() {
                 key={index}
                 href={method.link}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer" // security best practice for external links
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }} // staggered: 0s, 0.1s, 0.2s...
@@ -114,8 +117,10 @@ export default function Contact() {
                 whileHover={{ x: 5, scale: 1.02 }} // slides right slightly on hover
                 className="flex items-center gap-4 rounded-xl border border-zinc-800 bg-zinc-900/50 p-4 hover:border-zinc-700 transition-colors"
               >
-                {/* Icon */}
-                <div className="text-2xl">{method.icon}</div>
+                {/* Icon — renders the react-icons component stored in method.icon */}
+                <div className="text-3xl text-zinc-400">
+                  {<method.icon />}
+                </div>
 
                 {/* Label and value */}
                 <div className="flex-1">
