@@ -38,33 +38,33 @@ export default function Contact() {
   const contactMethods = [
     {
       label: 'Email',
-      value: 'peter@example.com',
+      value: 'kiberujakes@gmail.com',
       icon: MdEmail,          // Material Design email icon
-      link: 'mailto:peter@example.com',
+      link: 'mailto:kiberujakes@gmail.com',
     },
     {
       label: 'LinkedIn',
-      value: 'linkedin.com/in/pjkiberu',
+      value: 'linkedin.com/in/peter-jakes-kiberu',
       icon: FaLinkedin,       // Font Awesome LinkedIn icon
-      link: 'https://linkedin.com/in/pjkiberu',
+      link: 'https://www.linkedin.com/in/peter-jakes-kiberu-70533a391/',
     },
     {
       label: 'GitHub',
-      value: 'github.com/pjkiberu',
+      value: 'github.com/Peterjakes',
       icon: FaGithub,         // Font Awesome GitHub icon
-      link: 'https://github.com/pjkiberu',
+      link: 'https://github.com/Peterjakes',
     },
     {
       label: 'WhatsApp',
-      value: '+1 (555) 123-4567',
+      value: '+254 743 773 185',
       icon: FaWhatsapp,       // Font Awesome WhatsApp icon
-      link: 'https://wa.me/15551234567',
+      link: 'https://wa.me/254743773185',
     },
     {
       label: 'Instagram',
-      value: '@pjkiberu',
+      value: '@syre_jakes',
       icon: FaInstagram,      // Font Awesome Instagram icon
-      link: 'https://instagram.com/pjkiberu',
+      link: 'https://instagram.com/syre_jakes',
     },
   ];
 
